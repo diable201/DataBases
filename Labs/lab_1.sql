@@ -11,7 +11,7 @@ CREATE TABLE users (
 );
 -- 3. Add integer column (0 or 1) «isadmin» to «users» table
 ALTER TABLE users
-ADD COLUMN isadmin INTEGER;
+ADD COLUMN isadmin INTEGER CONSTRAINT checker CHECK(isadmin = 0 OR isadmin = 1);
 -- 4. Change type of «isadmin» column to boolean
 ALTER TABLE users
 ALTER COLUMN isadmin SET DATA TYPE BOOLEAN USING users.isadmin::bool;

@@ -40,7 +40,7 @@ SELECT * FROM Packs;
 -- 5. Select all packs with a value larger than $180.
 SELECT * FROM Packs WHERE VALUE > 180;
 -- 6. Select all the packs distinct by contents.
-SELECT DISTINCT contents FROM Packs;
+SELECT DISTINCT ON(contents) * FROM Packs;
 -- 7. Select the warehouse code and the number of the packs in
 -- each warehouse.
 SELECT warehouse, count(*) FROM Packs GROUP BY warehouse;
