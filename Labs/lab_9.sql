@@ -87,7 +87,7 @@ FROM salesman_from_NY;
 CREATE VIEW customer_salesman_names AS
 SELECT o.ord_no, c.cust_name, s.name
 FROM orders AS o JOIN customers c ON o.customer_id = c.customer_id
-JOIN salesman s on s.salesman_id = o.salesman_id;
+JOIN salesman s ON o.salesman_id = s.salesman_id;
 SELECT *
 FROM customer_salesman_names;
 GRANT ALL PRIVILEGES ON customer_salesman_names TO junior_dev;
@@ -126,3 +126,16 @@ CREATE ROLE intern;
 GRANT intern to junior_dev;
 -- Or we can use this but it changes owner
 REASSIGN OWNED BY junior_dev TO intern;
+
+-- Defence
+SELECT DISTINCT e2.*, d.* FROM employees e RIGHT JOIN employees e2 ON (e.manager_id = e2.employee_id)
+LEFT JOIN departments d on e.manager_id = d.manager_id
+WHERE e.manager_id IS NOT NULL AND d.manager_id IS NULL;
+
+SELECT DISTINCT e.* FROM employees e JOIN departments d on e.employee_id = d.manager_id
+LEFT JOIN employees e2 ON e2.manager_id = d.manager_id
+WHERE e.manager_id IS NOT NULL AND e2.manager_id IS NULL;
+
+SELECT DISTINCT e2.* FROM employees e INNER JOIN employees e2 ON (e.manager_id = e2.employee_id)
+INNER JOIN departments d on e.manager_id = d.manager_id;
+

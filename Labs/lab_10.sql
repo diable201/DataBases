@@ -121,3 +121,38 @@ $$ LANGUAGE plpgsql;
 
 SELECT *
 FROM get_value_pattern('U_');
+
+-- Defence
+CREATE OR REPLACE FUNCTION f1(s TEXT) RETURNS BOOLEAN AS
+$$
+BEGIN
+    CASE
+        WHEN s = lower(s) THEN
+            RETURN TRUE;
+        WHEN s = upper(s) THEN
+            RETURN TRUE;
+        ELSE RETURN FALSE;
+        END CASE;
+END;
+$$
+    LANGUAGE plpgsql;
+
+SELECT *
+FROM f1('ABC');
+SELECT * 
+FROM f1('abC');
+
+CREATE OR REPLACE FUNCTION get_value_pattern(pattern INTEGER)
+    RETURNS TABLE
+            (
+                department_u INTEGER,
+                department_u_2 TEXT
+            )
+AS
+$$
+BEGIN
+    RETURN QUERY SELECT department_id, department_name FROM lab7.public.departments LIMIT pattern;
+END ;
+$$ LANGUAGE plpgsql;
+
+SELECT * FROM get_value_pattern(2);
