@@ -85,9 +85,9 @@ FROM salesman_from_NY;
 -- 5. Create a view that shows for each order the salesman and
 -- customer by name. Grant all privileges to «junior_dev»
 CREATE VIEW customer_salesman_names AS
-SELECT s.name, c.cust_name
-FROM salesman AS s
-         INNER JOIN customers AS c USING (salesman_id);
+SELECT o.ord_no, c.cust_name, s.name
+FROM orders AS o JOIN customers c ON o.customer_id = c.customer_id
+JOIN salesman s on s.salesman_id = o.salesman_id;
 SELECT *
 FROM customer_salesman_names;
 GRANT ALL PRIVILEGES ON customer_salesman_names TO junior_dev;
