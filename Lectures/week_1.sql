@@ -1,7 +1,8 @@
-CREATE TABLE student (
-  id SERIAL,
-  name CHAR(255),
-  gpa NUMERIC
+CREATE TABLE student
+(
+    id   SERIAL,
+    name CHAR(255),
+    gpa  NUMERIC
 );
 
 DROP TABLE student;
@@ -27,22 +28,27 @@ ALTER TABLE student
 
 
 INSERT INTO student
-    VALUES (DEFAULT, 'Student 1', 3.8);
+VALUES (DEFAULT, 'Student 1', 3.8);
 
 INSERT INTO student
-    VALUES (DEFAULT, 'Student 2', 4.0);
+VALUES (DEFAULT, 'Student 2', 4.0);
 
 INSERT INTO student
-  VALUES (DEFAULT, 'Student 3', 3.5);
+VALUES (DEFAULT, 'Student 3', 3.5);
 
-UPDATE student SET name='Student 11' WHERE id=1;
+UPDATE student
+SET name='Student 11'
+WHERE id = 1;
 
-DELETE FROM student WHERE id=3;
+DELETE
+FROM student
+WHERE id = 3;
 
 INSERT INTO student
-  VALUES (DEFAULT, 'Student 4', 3.6);
+VALUES (DEFAULT, 'Student 4', 3.6);
 
-SELECT * FROM student;
+SELECT *
+FROM student;
 
 
 -- DDL - Data definition language
@@ -81,9 +87,10 @@ FROM student;
   comment
  */
 
-CREATE TABLE category (
-  id   SERIAL,
-  name VARCHAR(255)
+CREATE TABLE category
+(
+    id   SERIAL,
+    name VARCHAR(255)
 );
 
 SELECT *
@@ -93,26 +100,30 @@ INSERT INTO category AS c
 VALUES (DEFAULT, 'category 2');
 
 ALTER TABLE category
-  ALTER COLUMN id SET DEFAULT 0;
+    ALTER COLUMN id SET DEFAULT 0;
 
 ALTER TABLE category
-  ALTER COLUMN name SET DEFAULT 'default category';
+    ALTER COLUMN name SET DEFAULT 'default category';
 
-INSERT INTO category DEFAULT VALUES;
+INSERT INTO category DEFAULT
+VALUES;
 
 ALTER TABLE category
-  ADD COLUMN last_update TIMESTAMP DEFAULT now();
+    ADD COLUMN last_update TIMESTAMP DEFAULT now();
 
 INSERT INTO category (name, last_update)
 VALUES ('category 3', now());
 
-CREATE TABLE category_tmp (LIKE category);
+CREATE TABLE category_tmp
+(
+    LIKE category
+);
 
 
 INSERT INTO category_tmp
-  SELECT *
-  FROM category
-  WHERE id > 0;
+SELECT *
+FROM category
+WHERE id > 0;
 
 SELECT *
 FROM category_tmp;
@@ -131,9 +142,10 @@ WHERE id = 2;
 -- WHERE id = 2;
 
 UPDATE category_tmp AS c_tmp
-SET name = 'new category' FROM category AS c
-WHERE c_tmp.id = c.id AND
-      c.name = 'category 2'
+SET name = 'new category'
+FROM category AS c
+WHERE c_tmp.id = c.id
+  AND c.name = 'category 2'
 RETURNING id, name;
 
 UPDATE category_tmp AS c_tmp
@@ -144,14 +156,16 @@ WHERE id = (SELECT id
 RETURNING *;
 
 
-DELETE FROM category_tmp
+DELETE
+FROM category_tmp
 WHERE name = 'category 3';
 
 SELECT *
 FROM category_tmp;
 
-DELETE FROM category_tmp AS c_tmp
-USING category AS c
+DELETE
+FROM category_tmp AS c_tmp
+    USING category AS c
 WHERE c_tmp.name = c.name;
 
 -- DELETE FROM account

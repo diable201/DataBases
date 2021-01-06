@@ -63,7 +63,7 @@ SELECT insert_data(11, 'AITU', 'KAZAKHSTAN', '93');
 -- 3. Create a stored function that take IN parameter(University name) and will return all columns’ values
 -- from table (Hint: OUT).
 CREATE OR REPLACE FUNCTION return_info(IN university_name_u VARCHAR(255), OUT id_u INTEGER, OUT name_u VARCHAR(255),
-                                 OUT country_u VARCHAR(255), OUT rating_u INTEGER)
+                                       OUT country_u VARCHAR(255), OUT rating_u INTEGER)
 AS
 $$
 BEGIN
@@ -81,7 +81,7 @@ FROM return_info('OXFORD');
 -- 4. Create a stored function that takes IN parameters(list of numbers) and will returns max and min value
 -- from list
 CREATE OR REPLACE FUNCTION max_min_value(IN a NUMERIC, IN b NUMERIC, IN c NUMERIC,
-                                      OUT max_value NUMERIC, OUT min_value NUMERIC) AS
+                                         OUT max_value NUMERIC, OUT min_value NUMERIC) AS
 $$
 BEGIN
     max_value := greatest(a, b, c);
@@ -139,13 +139,13 @@ $$
 
 SELECT *
 FROM f1('ABC');
-SELECT * 
+SELECT *
 FROM f1('abC');
 
 CREATE OR REPLACE FUNCTION get_value_pattern(pattern INTEGER)
     RETURNS TABLE
             (
-                department_u INTEGER,
+                department_u   INTEGER,
                 department_u_2 TEXT
             )
 AS
@@ -155,4 +155,5 @@ BEGIN
 END ;
 $$ LANGUAGE plpgsql;
 
-SELECT * FROM get_value_pattern(2);
+SELECT *
+FROM get_value_pattern(2);

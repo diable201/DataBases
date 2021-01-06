@@ -40,5 +40,3 @@ UPDATE student SET name='Student 11' WHERE id=1;
 DELETE FROM student WHERE id=3;
 
 -- SELECT * FROM student;
-
-

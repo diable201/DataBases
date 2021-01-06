@@ -68,3 +68,4 @@ SELECT * FROM theaters WHERE id IN
 	(SELECT theater_id FROM movietheaters 
 	 GROUP BY theater_id 
 	 HAVING count(theater_id) > 1);
+	 

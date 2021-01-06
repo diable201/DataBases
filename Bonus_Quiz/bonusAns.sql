@@ -34,4 +34,3 @@ where e.department_id IN (select d.department_id
                           group by d.department_id
                           order by avg(e2.salary) desc
                           offset 2 limit 1);
-

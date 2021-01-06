@@ -159,4 +159,3 @@ VALUES
 
 SELECT *
 FROM order_items;
-

@@ -199,49 +199,57 @@ values (10, 'Administration', 200, 1700),
 
 -- 1
 SELECT department_name, first_name, last_name, hire_date, salary
-FROM employees JOIN departments d ON employees.department_id = d.department_id
-WHERE current_date - hire_date > 15 AND employees.employee_id IN (SELECT manager_id FROM employees);
+FROM employees
+         JOIN departments d ON employees.department_id = d.department_id
+WHERE current_date - hire_date > 15
+  AND employees.employee_id IN (SELECT manager_id FROM employees);
 
 -- 2
 SELECT first_name, last_name, department_id, department_name
 FROM employees
-JOIN departments USING (department_id);
+         JOIN departments USING (department_id);
 
 -- 3
 SELECT e.first_name, e.last_name, e.job_id, e.department_id, d.department_name
 FROM employees e
-JOIN departments d
-ON (e.department_id = d.department_id)
-JOIN locations l ON
-(d.location_id = l.location_id)
+         JOIN departments d
+              ON (e.department_id = d.department_id)
+         JOIN locations l ON
+    (d.location_id = l.location_id)
 WHERE (l.city) = 'London';
 
 -- 4
-SELECT w1.employee_id AS "Employee ID" , w1.last_name AS "Employee",
-w2.employee_id AS "Manager ID", w2.last_name AS "Manager"
-FROM employees w1 JOIN employees w2
-ON w1.manager_id= w2.employee_id;
+SELECT w1.employee_id AS "Employee ID",
+       w1.last_name   AS "Employee",
+       w2.employee_id AS "Manager ID",
+       w2.last_name   AS "Manager"
+FROM employees w1
+         JOIN employees w2
+              ON w1.manager_id = w2.employee_id;
 
 -- 5
 SELECT e.first_name, e.last_name, e.hire_date
 FROM employees e
-JOIN employees j
-ON (j.last_name = 'Jones')
+         JOIN employees j
+              ON (j.last_name = 'Jones')
 WHERE j.hire_date < e.hire_date;
 
 -- 6
 SELECT department_name AS "Department Name",
-COUNT(*) AS "Number of Employees" FROM departments
-INNER JOIN employees ON employees.department_id = departments.department_id
-GROUP BY departments.department_id, department_name ORDER BY department_name;
+       COUNT(*)        AS "Number of Employees"
+FROM departments
+         INNER JOIN employees ON employees.department_id = departments.department_id
+GROUP BY departments.department_id, department_name
+ORDER BY department_name;
 
 -- 7
-SELECT employee_id, job_id, (current_date - hire_date) AS "Number of days"  FROM employees
-JOIN departments d ON employees.department_id = d.department_id
+SELECT employee_id, job_id, (current_date - hire_date) AS "Number of days"
+FROM employees
+         JOIN departments d ON employees.department_id = d.department_id
 WHERE d.department_id = 90;
 
 -- 8
 SELECT d.department_id, d.department_name, e.first_name
 FROM departments d
-LEFT JOIN  employees e
-ON (d.manager_id = e.employee_id);
+         LEFT JOIN employees e
+                   ON (d.manager_id = e.employee_id);

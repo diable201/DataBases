@@ -32,3 +32,4 @@ HAVING department_id = (SELECT d.department_id
                         GROUP BY d.department_id
                         ORDER BY avg(salary) DESC
                         LIMIT 1 OFFSET 2);
+                        

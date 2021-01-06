@@ -2,19 +2,21 @@
 CREATE DATABASE lab6;
 
 -- 2. Create following table «customers» and «orders»:
-CREATE TABLE customers (
+CREATE TABLE customers
+(
     customer_id INTEGER PRIMARY KEY,
-    cust_name VARCHAR(255),
-    city VARCHAR(255),
-    grade INTEGER,
+    cust_name   VARCHAR(255),
+    city        VARCHAR(255),
+    grade       INTEGER,
     salesman_id INTEGER
 );
 
-CREATE TABLE orders (
-    order_no INTEGER PRIMARY KEY,
-    purch_amt REAL,
-    ord_date VARCHAR(255),
-    customer_id INTEGER REFERENCES customers(customer_id),
+CREATE TABLE orders
+(
+    order_no    INTEGER PRIMARY KEY,
+    purch_amt   REAL,
+    ord_date    VARCHAR(255),
+    customer_id INTEGER REFERENCES customers (customer_id),
     salesman_id INTEGER
 );
 
@@ -49,28 +51,47 @@ INSERT INTO orders (order_no, purch_amt, ord_date, customer_id, salesman_id)
 VALUES (70008, 5760, '2012-09-10', 3002, 5001);
 
 -- 3. Select the total purchase amount of all orders.
-SELECT sum(purch_amt) FROM orders;
+SELECT sum(purch_amt)
+FROM orders;
 -- 4. Select the average purchase amount of all orders.
-SELECT avg(purch_amt) FROM orders;
+SELECT avg(purch_amt)
+FROM orders;
 -- 5. Select how many customer have listed their names.
-SELECT count(cust_name) FROM customers WHERE cust_name IS NOT NULL;
+SELECT count(cust_name)
+FROM customers
+WHERE cust_name IS NOT NULL;
 -- 6. Select the minimum purchase amount of all the orders.
-SELECT min(purch_amt) FROM orders;
+SELECT min(purch_amt)
+FROM orders;
 -- 7. Select customer with all information whose name ends with the
 -- letter 'b'.
-SELECT * FROM customers WHERE cust_name LIKE '%b %';
+SELECT *
+FROM customers
+WHERE cust_name LIKE '%b %';
 -- 8. Select orders which made by customers from ‘New York’.
-SELECT * FROM orders WHERE customer_id IN (
-SELECT customer_id FROM customers WHERE city = 'New York'
+SELECT *
+FROM orders
+WHERE customer_id IN (
+    SELECT customer_id
+    FROM customers
+    WHERE city = 'New York'
 );
 -- 9. Select customers with all information who has order with
 -- purchase amount more than 10.
-SELECT * FROM customers WHERE customer_id IN (
-SELECT customer_id FROM orders WHERE purch_amt > 10
+SELECT *
+FROM customers
+WHERE customer_id IN (
+    SELECT customer_id
+    FROM orders
+    WHERE purch_amt > 10
 );
 -- 10. Select total grade of all customers.
-SELECT sum(grade) FROM customers;
+SELECT sum(grade)
+FROM customers;
 -- 11. Select all customers who have listed their names.
-SELECT * FROM customers WHERE cust_name IS NOT NULL;
+SELECT *
+FROM customers
+WHERE cust_name IS NOT NULL;
 -- 12. Select the maximum grade of all the customers.
-SELECT max(grade) FROM customers;
+SELECT max(grade)
+FROM customers;
